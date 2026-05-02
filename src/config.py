@@ -10,5 +10,3 @@ def load_config(path: str = "config.yaml") -> dict:
         return yaml.safe_load(f)
 
 
-def col(config: dict, section: str, key: str) -> str:
-    return config[section][key]

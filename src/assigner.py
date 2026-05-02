@@ -1,3 +1,4 @@
+import copy
 import pandas as pd
 from src.occupancy import OccupancyMap
 from src.parser import parse_period, is_unscheduled
@@ -15,7 +16,7 @@ def assign_rooms(
     if '잠금' not in result.columns:
         result['잠금'] = ''
 
-    occ = base_occupancy
+    occ = copy.deepcopy(base_occupancy)
     warnings = []
 
     combined_enrollment: dict[str, int] = {}
@@ -26,9 +27,13 @@ def assign_rooms(
     for idx, row in courses.iterrows():
         if str(row.get('잠금', '')).strip().upper() == 'Y':
             assigned = str(row.get('배정강의실', '')).strip()
+            if not assigned:
+                warnings.append({'과목명': str(row.get('과목명', '')), '사유': '잠금=Y이나 배정강의실 없음 (검토 필요)'})
+                result.at[idx, '배정강의실'] = '미배정-검토필요'
+                continue
             day = str(row.get('요일', '')).strip()
             period_str = str(row.get('교시', '')).strip()
-            if assigned and day and not is_unscheduled(period_str):
+            if day and not is_unscheduled(period_str):
                 try:
                     periods = parse_period(period_str)
                     occ.occupy(assigned, day, periods)

@@ -1,6 +1,5 @@
 import re
 import pandas as pd
-from src.config import col
 from src.occupancy import OccupancyMap
 from src.parser import parse_period, is_unscheduled
 
