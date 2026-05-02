@@ -25,8 +25,7 @@ def score_room(
     if room_cap > 0:
         score += (1 - (room_cap - enrollment) / room_cap) * 20
 
-    spare = room_cap - enrollment
-    if not has_facility_req and not str(room.get('특이사항', '')).strip() and spare >= enrollment // 2:
+    if not has_facility_req and not str(room.get('특이사항', '')).strip():
         score += 20
 
     return score

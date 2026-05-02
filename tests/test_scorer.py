@@ -28,13 +28,23 @@ class TestScoreRoom:
         assert score >= 20
 
     def test_full_room_scores_low_capacity(self):
-        room = make_room("101", 1, 21)
+        # 특이사항 있는 방으로 일반 강의실 보너스를 제외하고 수용인원 점수만 테스트
+        room = make_room("101", 1, 21, notes="특수장비")
         score = score_room(room, major="신학석사", dept="신학과",
                            enrollment=20, assigned_by_major={},
                            assigned_rooms_by_dept={},
                            has_facility_req=False)
         capacity_score = (1 - (21 - 20) / 21) * 20
         assert abs(score - capacity_score) < 1
+
+    def test_plain_room_bonus_applies_regardless_of_capacity(self):
+        # 수용인원 여유가 적어도 일반 강의실이면 +20 지급
+        room = make_room("101", 1, 25, notes="")
+        score = score_room(room, major="신학석사", dept="신학과",
+                           enrollment=20, assigned_by_major={},
+                           assigned_rooms_by_dept={},
+                           has_facility_req=False)
+        assert score >= 20
 
     def test_no_facility_req_in_plain_room_scores_20(self):
         room = make_room("101", 1, 30, notes="")
