@@ -1,6 +1,6 @@
 import pandas as pd
 import pytest
-from src.assigner import assign_rooms
+from src.assigner import assign_rooms, validate_combined
 from src.occupancy import OccupancyMap
 
 
@@ -94,3 +94,24 @@ class TestAssignRooms:
         rooms = make_rooms(('강의실A', 'A101', 1, 30, ''))
         result, warnings = assign_rooms(courses, rooms, OccupancyMap())
         assert result.loc[0, '배정강의실'] == result.loc[1, '배정강의실']
+
+
+class TestValidateCombined:
+    def test_consistent_combined_passes(self):
+        result = make_courses(
+            ('조직신학(석사)', '월', '4~6', '김교수', '신학과', '신학석사', '10', '', '', 'C001', 'A101', ''),
+            ('조직신학(박사)', '월', '4~6', '김교수', '신학과', '신학박사', '5', '', '', 'C001', 'A101', ''),
+        )
+        result['배정강의실'] = ['A101', 'A101']
+        issues = validate_combined(result)
+        assert issues == []
+
+    def test_inconsistent_room_flagged(self):
+        result = make_courses(
+            ('조직신학(석사)', '월', '4~6', '김교수', '신학과', '신학석사', '10', '', '', 'C001', 'A101', ''),
+            ('조직신학(박사)', '월', '4~6', '김교수', '신학과', '신학박사', '5', '', '', 'C001', 'B201', ''),
+        )
+        result['배정강의실'] = ['A101', 'B201']
+        issues = validate_combined(result)
+        assert len(issues) == 1
+        assert 'C001' in issues[0]['합강좌번호']
