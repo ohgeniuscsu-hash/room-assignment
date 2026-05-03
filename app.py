@@ -32,6 +32,26 @@ logo_tag = (
 st.markdown(f"""
 <style>
   .block-container {{ padding-top: 0 !important; }}
+  .stApp {{ background-color: #F0F4FA; }}
+  .stButton > button[kind="primary"] {{
+      background-color: #F0C040 !important;
+      color: #1A2C5E !important;
+      border: none !important;
+      font-weight: 700 !important;
+  }}
+  .stButton > button[kind="primary"]:hover {{
+      background-color: #D4AF37 !important;
+      color: #1A2C5E !important;
+  }}
+  .stTabs [data-baseweb="tab-list"] {{
+      background-color: #ffffff;
+      border-radius: 8px;
+  }}
+  .stTabs [data-baseweb="tab"][aria-selected="true"] {{
+      color: #1A2C5E;
+      font-weight: 700;
+      border-bottom: 3px solid #F0C040;
+  }}
 </style>
 <div style="background:#1A2C5E;padding:14px 40px;display:flex;
             align-items:center;gap:16px;margin-bottom:28px;">
