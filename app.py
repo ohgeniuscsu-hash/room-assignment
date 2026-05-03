@@ -31,26 +31,68 @@ logo_tag = (
 )
 st.markdown(f"""
 <style>
+  /* 레이아웃 */
   .block-container {{ padding-top: 0 !important; }}
   .stApp {{ background-color: #F0F4FA; }}
+
+  /* 텍스트 색상 */
+  .stApp p, .stApp label, .stApp span,
+  .stMarkdown, .stCaption,
+  [data-testid="stMarkdownContainer"] p {{
+      color: #1A2C5E !important;
+  }}
+  h1, h2, h3, h4 {{ color: #1A2C5E !important; }}
+  .stTextInput label, .stSelectbox label {{ color: #1A2C5E !important; font-weight: 600 !important; }}
+
+  /* 골드 실행 버튼 */
   .stButton > button[kind="primary"] {{
       background-color: #F0C040 !important;
       color: #1A2C5E !important;
       border: none !important;
       font-weight: 700 !important;
+      border-radius: 8px !important;
   }}
   .stButton > button[kind="primary"]:hover {{
       background-color: #D4AF37 !important;
       color: #1A2C5E !important;
   }}
+
+  /* 탭 */
   .stTabs [data-baseweb="tab-list"] {{
       background-color: #ffffff;
       border-radius: 8px;
   }}
   .stTabs [data-baseweb="tab"][aria-selected="true"] {{
-      color: #1A2C5E;
+      color: #1A2C5E !important;
       font-weight: 700;
       border-bottom: 3px solid #F0C040;
+  }}
+
+  /* 파일 업로더 카드 */
+  [data-testid="stFileUploaderDropzone"] {{
+      background-color: #FFFFFF !important;
+      border: 2px dashed #4A7DC1 !important;
+      border-radius: 12px !important;
+  }}
+  [data-testid="stFileUploaderDropzone"]:hover {{
+      border-color: #F0C040 !important;
+      background-color: #FAFCFF !important;
+  }}
+  [data-testid="stFileUploaderDropzone"] span,
+  [data-testid="stFileUploaderDropzone"] p {{
+      color: #1A2C5E !important;
+  }}
+  .stFileUploader label {{
+      color: #1A2C5E !important;
+      font-weight: 600 !important;
+      font-size: 15px !important;
+  }}
+
+  /* 입력 필드 */
+  .stTextInput input {{
+      background-color: #FFFFFF !important;
+      border-radius: 8px !important;
+      color: #1A2C5E !important;
   }}
 </style>
 <div style="background:#1A2C5E;padding:14px 40px;display:flex;
