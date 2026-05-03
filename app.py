@@ -41,7 +41,7 @@ st.markdown(f"""
   .block-container {{ padding-top: 0 !important; }}
   .stApp {{ background-color: #F0F4FA; }}
 
-  /* ── 본문 텍스트 (헤더 div 제외하고 정확히 타겟팅) ── */
+  /* ── 본문 텍스트 ── */
   [data-testid="stMarkdownContainer"] p,
   [data-testid="stMarkdownContainer"] li,
   [data-testid="stMarkdownContainer"] span,
@@ -51,6 +51,9 @@ st.markdown(f"""
       color: #1A2C5E !important;
   }}
   h1, h2, h3, h4, h5, h6 {{ color: #1A2C5E !important; }}
+
+  /* ── 네이비 헤더 내부는 항상 흰색 (ID 특이도로 위 규칙 덮어씀) ── */
+  #csu-header, #csu-header * {{ color: #FFFFFF !important; }}
 
   /* ── 폼 레이블 ── */
   .stTextInput label, .stSelectbox label,
@@ -178,10 +181,10 @@ st.markdown(f"""
   /* ── 캡션 ── */
   small, .stCaption {{ color: #5A6E8C !important; }}
 </style>
-<div style="background:#1A2C5E;padding:14px 40px;display:flex;
+<div id="csu-header" style="background:#1A2C5E;padding:14px 40px;display:flex;
             align-items:center;gap:16px;margin-bottom:28px;">
   {logo_tag}
-  <span style="color:#FFFFFF !important;font-size:20px;font-weight:700;letter-spacing:-0.3px;">
+  <span style="font-size:20px;font-weight:700;letter-spacing:-0.3px;">
     총신대학교 대학원&nbsp;&nbsp;강의실 배정 시스템
   </span>
 </div>
