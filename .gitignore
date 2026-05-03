@@ -3,3 +3,4 @@ __pycache__/
 .DS_Store
 배정결과.xlsx
 시간표.xlsx
+.streamlit/secrets.toml
