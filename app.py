@@ -31,21 +31,49 @@ logo_tag = (
 )
 st.markdown(f"""
 <style>
-  /* 레이아웃 */
+  /* ── Streamlit 기본 UI 제거 ── */
   header[data-testid="stHeader"] {{ display: none !important; }}
+  [data-testid="stToolbar"] {{ display: none !important; }}
+  footer[data-testid="stFooter"] {{ display: none !important; }}
+  #MainMenu {{ display: none !important; }}
+
+  /* ── 레이아웃 ── */
   .block-container {{ padding-top: 0 !important; }}
   .stApp {{ background-color: #F0F4FA; }}
 
-  /* 텍스트 색상 */
-  .stApp p, .stApp label, .stApp span,
-  .stMarkdown, .stCaption,
-  [data-testid="stMarkdownContainer"] p {{
+  /* ── 본문 텍스트 (헤더 div 제외하고 정확히 타겟팅) ── */
+  [data-testid="stMarkdownContainer"] p,
+  [data-testid="stMarkdownContainer"] li,
+  [data-testid="stMarkdownContainer"] span,
+  .stApp label,
+  .stApp .stCaption p,
+  .stApp .stCaption span {{
       color: #1A2C5E !important;
   }}
-  h1, h2, h3, h4 {{ color: #1A2C5E !important; }}
-  .stTextInput label, .stSelectbox label {{ color: #1A2C5E !important; font-weight: 600 !important; }}
+  h1, h2, h3, h4, h5, h6 {{ color: #1A2C5E !important; }}
 
-  /* 골드 실행 버튼 */
+  /* ── 폼 레이블 ── */
+  .stTextInput label, .stSelectbox label,
+  .stFileUploader label, .stTextArea label {{
+      color: #1A2C5E !important;
+      font-weight: 600 !important;
+  }}
+
+  /* ── 입력 필드 ── */
+  .stTextInput input {{
+      background-color: #FFFFFF !important;
+      color: #1A2C5E !important;
+      border-radius: 8px !important;
+  }}
+  .stTextInput input::placeholder {{ color: #8899BB !important; }}
+
+  /* ── 셀렉트박스 ── */
+  .stSelectbox [data-baseweb="select"] > div {{
+      background-color: #FFFFFF !important;
+      color: #1A2C5E !important;
+  }}
+
+  /* ── 골드 실행 버튼 ── */
   .stButton > button[kind="primary"] {{
       background-color: #F0C040 !important;
       color: #1A2C5E !important;
@@ -58,18 +86,57 @@ st.markdown(f"""
       color: #1A2C5E !important;
   }}
 
-  /* 탭 */
+  /* ── 보조 버튼 (조회, 비교 등) ── */
+  .stButton > button:not([kind="primary"]) {{
+      background-color: #FFFFFF !important;
+      color: #1A2C5E !important;
+      border: 1.5px solid #4A7DC1 !important;
+      border-radius: 8px !important;
+      font-weight: 600 !important;
+  }}
+  .stButton > button:not([kind="primary"]):hover {{
+      background-color: #EEF3FA !important;
+      border-color: #1A2C5E !important;
+  }}
+
+  /* ── 다운로드 버튼 ── */
+  .stDownloadButton > button {{
+      background-color: #FFFFFF !important;
+      color: #1A2C5E !important;
+      border: 1.5px solid #4A7DC1 !important;
+      border-radius: 8px !important;
+      font-weight: 600 !important;
+  }}
+  .stDownloadButton > button:hover {{
+      background-color: #EEF3FA !important;
+      border-color: #1A2C5E !important;
+  }}
+
+  /* ── 탭 ── */
   .stTabs [data-baseweb="tab-list"] {{
-      background-color: #ffffff;
+      background-color: #FFFFFF;
       border-radius: 8px;
+      padding: 4px;
+  }}
+  .stTabs [data-baseweb="tab"] {{
+      color: #6B80A0 !important;
+      font-weight: 500;
+  }}
+  .stTabs [data-baseweb="tab"] p,
+  .stTabs [data-baseweb="tab"] div {{
+      color: #6B80A0 !important;
   }}
   .stTabs [data-baseweb="tab"][aria-selected="true"] {{
       color: #1A2C5E !important;
       font-weight: 700;
       border-bottom: 3px solid #F0C040;
   }}
+  .stTabs [data-baseweb="tab"][aria-selected="true"] p,
+  .stTabs [data-baseweb="tab"][aria-selected="true"] div {{
+      color: #1A2C5E !important;
+  }}
 
-  /* 파일 업로더 카드 */
+  /* ── 파일 업로더 카드 ── */
   [data-testid="stFileUploaderDropzone"] {{
       background-color: #FFFFFF !important;
       border: 2px dashed #4A7DC1 !important;
@@ -88,18 +155,18 @@ st.markdown(f"""
       font-weight: 600 !important;
       font-size: 15px !important;
   }}
+  .stFileUploader [data-testid="stFileUploaderDeleteBtn"] {{ color: #6B80A0 !important; }}
 
-  /* 입력 필드 */
-  .stTextInput input {{
-      background-color: #FFFFFF !important;
-      border-radius: 8px !important;
-      color: #1A2C5E !important;
-  }}
+  /* ── 익스팬더 ── */
+  details summary p, .streamlit-expanderHeader p {{ color: #1A2C5E !important; font-weight: 600 !important; }}
+
+  /* ── 캡션 ── */
+  small, .stCaption {{ color: #5A6E8C !important; }}
 </style>
 <div style="background:#1A2C5E;padding:14px 40px;display:flex;
             align-items:center;gap:16px;margin-bottom:28px;">
   {logo_tag}
-  <span style="color:#FFFFFF;font-size:20px;font-weight:700;letter-spacing:-0.3px;">
+  <span style="color:#FFFFFF !important;font-size:20px;font-weight:700;letter-spacing:-0.3px;">
     총신대학교 대학원&nbsp;&nbsp;강의실 배정 시스템
   </span>
 </div>
