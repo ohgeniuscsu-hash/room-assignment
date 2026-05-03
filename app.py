@@ -157,6 +157,21 @@ st.markdown(f"""
   }}
   .stFileUploader [data-testid="stFileUploaderDeleteBtn"] {{ color: #6B80A0 !important; }}
 
+  /* ── Browse files 버튼 및 모든 secondary/minimal 버튼 ── */
+  [data-testid="stBaseButton-secondary"],
+  [data-testid="stBaseButton-minimal"] {{
+      background-color: #FFFFFF !important;
+      color: #1A2C5E !important;
+      border: 1.5px solid #4A7DC1 !important;
+      border-radius: 8px !important;
+      font-weight: 600 !important;
+  }}
+  [data-testid="stBaseButton-secondary"]:hover,
+  [data-testid="stBaseButton-minimal"]:hover {{
+      background-color: #EEF3FA !important;
+      border-color: #1A2C5E !important;
+  }}
+
   /* ── 익스팬더 ── */
   details summary p, .streamlit-expanderHeader p {{ color: #1A2C5E !important; font-weight: 600 !important; }}
 
@@ -174,7 +189,7 @@ st.markdown(f"""
 
 config = load_config()
 
-tab1, tab2 = st.tabs(["📋 배정", "🗂 이력"])
+tab1, tab2, tab3 = st.tabs(["📋 배정", "🗂 이력", "📝 릴리즈 노트"])
 
 with tab1:
     st.markdown("### ① 파일 업로드")
@@ -432,3 +447,11 @@ with tab2:
                         use_container_width=True,
                         hide_index=True,
                     )
+
+with tab3:
+    st.markdown("### 📝 릴리즈 노트")
+    changelog_path = Path(__file__).parent / "CHANGELOG.md"
+    if changelog_path.exists():
+        st.markdown(changelog_path.read_text(encoding="utf-8"))
+    else:
+        st.info("CHANGELOG.md 파일이 없습니다.")
