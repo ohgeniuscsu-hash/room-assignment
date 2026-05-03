@@ -32,6 +32,7 @@ logo_tag = (
 st.markdown(f"""
 <style>
   /* 레이아웃 */
+  header[data-testid="stHeader"] {{ display: none !important; }}
   .block-container {{ padding-top: 0 !important; }}
   .stApp {{ background-color: #F0F4FA; }}
 
